@@ -13,3 +13,8 @@ npm i express express-validator bcryptjs config gravatar jsonwebtoken mongoose r
 
 npm i -D nodemon concurrently
 
+실행
+npm run server
+
+git add .
+git commit -m 'Intial Commit'
