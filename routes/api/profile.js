@@ -210,4 +210,31 @@ router.put('/experience', [auth, [
     }
 });
 
+// @route  DELETE api/profile/experience/:exp_id
+// @desc   Delete experience from profile
+// @access Private
+router.delete('/experience/:exp_id', auth, async (req, res) => {
+    try {
+        // 삭제하기 위해서 요청한 유저의 id를 Profile db를
+        // 참조해 가져온다.
+        const profile = await Profile.findOne({ user: req.user.id });
+
+        // Get remove index
+        // 위에 파라미터에 해당하는 exp_id 값의
+        // index를 mapping해서 가져온다.
+        const removeIndex = profile.experience.map(item => item.id).indexOf(req.params.exp_id);
+
+        // splice()는 배열에서 특정 범위의 값들을 추출하고, 그 자리에 새로운 값을 넣는다.
+        profile.experience.splice(removeIndex, 1);
+
+        await profile.save();
+
+        res.json(profile);
+
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+});
+
 module.exports = router;
