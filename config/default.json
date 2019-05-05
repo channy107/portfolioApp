@@ -1,4 +1,6 @@
 {
     "mongoURI": "mongodb+srv://adhun12:adhun12@firstapp-tlawy.mongodb.net/test?retryWrites=true",
-    "jwtSecret": "mysecrettoken"
+    "jwtSecret": "mysecrettoken",
+    "githubClientId": "c35c13341ede74097376",
+    "githubSecret": "8d9d6b4996beca5c5c14520edf9085beff245184"
 }
