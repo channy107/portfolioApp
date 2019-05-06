@@ -112,7 +112,7 @@ router.delete('/:id', auth, async (req, res) => {
 
 router.put('/like/:id', auth, async (req, res) => {
     try {
-        const post = Post.findById(req.params.id);
+        const post = await Post.findById(req.params.id);
 
         // Check if the post has already been liked
         if (
@@ -138,7 +138,7 @@ router.put('/like/:id', auth, async (req, res) => {
 
 router.put('/unlike/:id', auth, async (req, res) => {
     try {
-        const post = Post.findById(req.params.id);
+        const post = await Post.findById(req.params.id);
 
         // Check if the post has already been liked
         if (
