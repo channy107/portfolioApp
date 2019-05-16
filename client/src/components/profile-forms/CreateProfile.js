@@ -1,8 +1,11 @@
 import React, { Fragment, useState } from 'react'
+import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
+import { createProfile } from '../../actions/profile';
+import { pathToFileURL } from 'url';
 
-const CreateProfile = props => {
+const CreateProfile = ({ createProfile, history }) => {
     const [formData, setFormData] = useState({
         company: '',
         website: '',
@@ -40,6 +43,11 @@ const CreateProfile = props => {
         [e.target.name]: e.target.value
     });
 
+    const onSubmit = e => {
+        e.preventDefault();
+        createProfile(formData, history);
+    }
+
     return (
         <Fragment>
             <h1 className="large text-primary">
@@ -50,7 +58,7 @@ const CreateProfile = props => {
             profile stand out
             </p>
             <small>* = required field</small>
-            <form className="form">
+            <form className="form" onSubmit={e => onSubmit(e)}>
                 <div className="form-group">
                     <select name="status" value={status} onChange={e => onChange(e)}>
                         <option value="0">* Select Professional Status</option>
@@ -115,7 +123,7 @@ const CreateProfile = props => {
                 {displaySocialInputs && <Fragment>
                     <div className="form-group social-input">
                         <i className="fab fa-twitter fa-2x"></i>
-                        <input type="text" placeholder="Twitter URL" name="twitter" value={twitter} onChange={e => onChange(e)}/>
+                        <input type="text" placeholder="Twitter URL" name="twitter" value={twitter} onChange={e => onChange(e)} />
                     </div>
 
                     <div className="form-group social-input">
@@ -130,12 +138,12 @@ const CreateProfile = props => {
 
                     <div className="form-group social-input">
                         <i className="fab fa-linkedin fa-2x"></i>
-                        <input type="text" placeholder="Linkedin URL" name="linkedin" value={linkedin} onChange={e => onChange(e)}/>
+                        <input type="text" placeholder="Linkedin URL" name="linkedin" value={linkedin} onChange={e => onChange(e)} />
                     </div>
 
                     <div className="form-group social-input">
                         <i className="fab fa-instagram fa-2x"></i>
-                        <input type="text" placeholder="Instagram URL" name="instagram" value={instagram} onChange={e => onChange(e)}/>
+                        <input type="text" placeholder="Instagram URL" name="instagram" value={instagram} onChange={e => onChange(e)} />
                     </div>
                 </Fragment>}
 
@@ -144,11 +152,13 @@ const CreateProfile = props => {
                 <a className="btn btn-light my-1" href="dashboard.html">Go Back</a>
             </form>
         </Fragment >
-    )
-}
+    );
+};
 
 CreateProfile.propTypes = {
-
+    createProfile: PropTypes.func.isRequired
 }
 
-export default CreateProfile
+
+
+export default connect(null, { createProfile })(withRouter(CreateProfile));
